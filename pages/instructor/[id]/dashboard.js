@@ -6,6 +6,8 @@ import { Card, Button } from "react-bootstrap";
 import { useGetUserPortfolios, useDeletePortfolio } from "@/apollo/actions";
 import { getDataFromTree } from "@apollo/react-ssr";
 import Link from "next/link";
+//importing helpers
+import {formatDate} from "@/helpers/functions";
 
 const InstructorDashboard = withAuth(() => {
   //call the data
@@ -31,7 +33,7 @@ const InstructorDashboard = withAuth(() => {
                 <Card.Body>
                   <Card.Title>{p.jobTitle}</Card.Title>
                   <Card.Text>
-                    {p.startDate} - {p.endDate}
+                    {formatDate(p.startDate)} - {formatDate(p.endDate)}
                   </Card.Text>
                   <Link
                     href="/portfolios/[id]/edit"
@@ -53,7 +55,7 @@ const InstructorDashboard = withAuth(() => {
       </div>
     </BaseLayout>
   );
-}, ["admin", "instructor"]);
+}, ["admin", "instructor"], {ssr: true});
 
 //this page is accessable to admins and instructors
 export default withApollo(InstructorDashboard, { getDataFromTree });

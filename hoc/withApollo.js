@@ -1,7 +1,8 @@
 // lib/withApollo.js
-import withApollo from 'next-with-apollo';
-import ApolloClient, { InMemoryCache } from 'apollo-boost';
-import { ApolloProvider } from '@apollo/react-hooks';
+import withApollo from "next-with-apollo";
+import ApolloClient, { InMemoryCache } from "apollo-boost";
+import { ApolloProvider } from "@apollo/react-hooks";
+import { calcDays } from "../helpers/functions";
 
 export default withApollo(
   ({ initialState, headers }) => {
@@ -9,13 +10,21 @@ export default withApollo(
       request: (operation) => {
         operation.setContext({
           fetchOptions: {
-            credentials: "include"
+            credentials: "include",
           },
-          headers
-        })
+          headers,
+        });
       },
-      uri: 'http://localhost:3000/graphql',
-      cache: new InMemoryCache().restore(initialState || {})
+      uri: "http://localhost:3000/graphql",
+      cache: new InMemoryCache().restore(initialState || {}),
+      resolvers: {
+        Portfolio: {
+          daysOfExperience(data, args, { cache }) {
+            const { startDate, endDate } = data;
+            return calcDays(startDate, endDate);
+          },
+        },
+      },
     });
   },
   {
@@ -25,6 +34,6 @@ export default withApollo(
           <Page {...props} />
         </ApolloProvider>
       );
-    }
+    },
   }
 );

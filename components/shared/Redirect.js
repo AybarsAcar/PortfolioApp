@@ -3,10 +3,12 @@ import {useRouter} from "next/router";
 
 const Redirect = (props) => {
 
+  const {to, query} = props
+
   const router = useRouter()
 
   useEffect(() => {
-    router.push({pathname: props.to})
+    router.push({pathname: to, query})
   }, []);
 
   return null

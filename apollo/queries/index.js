@@ -9,6 +9,7 @@ export const GET_PORTFOLIO = gql`
   query Portfolio($id: ID) {
     portfolio(id: $id) {
       _id
+      daysOfExperience @client
       title
       company
       companyWebsite
@@ -89,7 +90,7 @@ export const UPDATE_PORTFOLIO = gql`
         company: $company
         companyWebsite: $companyWebsite
         location: $location
-        jobTitle: $jobTItle
+        jobTitle: $jobTitle
         description: $description
         startDate: $startDate
         endDate: $endDate

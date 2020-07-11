@@ -1,6 +1,7 @@
 import AppNavbar from "../components/shared/Navbar";
 import Hero from "@/components/shared/Hero";
 import Footer from "../components/shared/Footer";
+import { ToastContainer } from 'react-toastify';
 
 
 //Component is the page youre navigating thru
@@ -16,7 +17,7 @@ const BaseLayout = ({ children, page = "" }) => {
           {children}
         </div>
         {isHomePage() && <Footer />}
-        
+        <ToastContainer />
       </div>
   );
 };

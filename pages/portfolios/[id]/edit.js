@@ -4,11 +4,12 @@ import withApollo from "@/hoc/withApollo";
 import withAuth from "@/hoc/withAuth";
 import { useRouter } from "next/router";
 import { useGetPortfolio, useUpdatePortfolio } from "@/apollo/actions";
+import { toast } from "react-toastify";
 
 const PortfolioEdit = () => {
   const router = useRouter();
 
-  const [updatePortfolio, {error}] = useUpdatePortfolio();
+  const [updatePortfolio, { error }] = useUpdatePortfolio();
 
   const { id } = router.query;
 
@@ -20,8 +21,14 @@ const PortfolioEdit = () => {
   //error is an object and it has graphql error where the errors are in an array
   const errorMessage = (error) => {
     return (
-      (error.graphQLErrors && error.graphQLErrors[0].message) || "smth went wrong"
+      (error.graphQLErrors && error.graphQLErrors[0].message) ||
+      "smth went wrong"
     );
+  };
+
+  const handlePortfolioUpdate = async (data) => {
+    await updatePortfolio({ variables: { id, ...data } });
+    toast.success("Portfolio has been updated!", { autoClose: 2000 });
   };
 
   return (
@@ -33,7 +40,7 @@ const PortfolioEdit = () => {
             {data && (
               <PortfolioCreateForm
                 initialData={data.portfolio}
-                onSubmit={(data) => updatePortfolio({variables: {id, ...data}})}
+                onSubmit={handlePortfolioUpdate}
               />
             )}
             {error && (
