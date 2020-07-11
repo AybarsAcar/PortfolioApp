@@ -38,17 +38,26 @@ export const GET_PORTFOLIOS = gql`
 `;
 
 export const CREATE_PORTFOLIO = gql`
-  mutation CreatePortfolio {
+  mutation CreatePortfolio(
+    $title: String
+    $company: String
+    $companyWebsite: String
+    $location: String
+    $jobTitle: String
+    $description: String
+    $startDate: String
+    $endDate: String
+  )  {
     createPortfolio(
       input: {
-        title: "New Job"
-        company: "New Company"
-        companyWebsite: "New Website"
-        location: "New Location"
-        jobTitle: "New Job Title"
-        description: "New Description"
-        startDate: "01/01/2019"
-        endDate: "01/01/2020"
+        title: $title
+        company: $company
+        companyWebsite: $companyWebsite
+        location: $location
+        jobTitle: $jobTitle
+        description: $description
+        startDate: $startDate
+        endDate: $endDate
       }
     ) {
       _id
@@ -65,20 +74,26 @@ export const CREATE_PORTFOLIO = gql`
 `;
 
 export const UPDATE_PORTFOLIO = gql`
-  mutation UpdatePortfolio($id: ID) {
-    updatePortfolio(
-      id: $id
-      input: {
-        title: "UPDATE"
-        company: "UPDATE"
-        companyWebsite: "New Website"
-        location: "New Location"
-        jobTitle: "New Job Title"
-        description: "New Description"
-        startDate: "01/01/2019"
-        endDate: "01/01/2020"
-      }
-    ) {
+  mutation UpdatePortfolio(
+    $id: ID
+    $title: String
+    $company: String
+    $companyWebsite: String
+    $location: String
+    $jobTitle: String
+    $description: String
+    $startDate: String
+    $endDate: String) {
+    updatePortfolio(id: $id, input: {
+        title: $title
+        company: $company
+        companyWebsite: $companyWebsite
+        location: $location
+        jobTitle: $jobTItle
+        description: $description
+        startDate: $startDate
+        endDate: $endDate
+      }) {
       _id
       title
       company
@@ -90,13 +105,25 @@ export const UPDATE_PORTFOLIO = gql`
       endDate
     }
   }
-`;
+`
 
 export const DELETE_PORTFOLIO = gql`
     mutation DeletePortfolio($id: ID) {
       deletePortfolio(id: $id)
     }
   `;
+
+export const GET_USER_PORTFOLIOS = gql`
+    query UserPortfolios {
+      userPortfolios {
+        _id
+        title
+        jobTitle
+        startDate
+        endDate
+      }
+    }
+`
 
 //PORTFOLIO QUERIES END -------------------
 

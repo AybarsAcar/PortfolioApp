@@ -1,0 +1,16 @@
+Fixes
+1. fix transitions on redirect
+  add spinners etc
+2. display msg when pushed to login page
+  ie pls login to navigate etc
+
+
+  ------------------Other Todos-------------------
+  apply this to material ui
+  create a todo app with the graphql backend
+  todo inside the drawer
+    set time to your todos
+  and ideas main page -- like a remainder
+    set time and alarm
+  login page
+  navbar

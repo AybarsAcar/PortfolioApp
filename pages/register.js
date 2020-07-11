@@ -3,6 +3,7 @@ import { Mutation } from "react-apollo";
 import { SIGN_UP } from "@/apollo/queries";
 import withApollo from "@/hoc/withApollo";
 import Redirect from "../components/shared/Redirect";
+import BaseLayout from "@/layouts/BaseLayout";
 
 function Register() {
   //error is an object and it has graphql error where the errors are in an array
@@ -13,7 +14,7 @@ function Register() {
   };
 
   return (
-    <>
+    <BaseLayout>
       <div className="bwm-form mt-5">
         <div className="row">
           <div className="col-md-5 mx-auto">
@@ -23,7 +24,7 @@ function Register() {
                 <>
                   <RegisterForm
                     onSubmit={(registerData) => {
-                      signUpUser({ variables: registerData });
+                      signUpUser({ variables: registerData }).catch((_) => {});
                     }}
                   />
                   {data && data.signUp && <Redirect to="/login" />}
@@ -38,7 +39,7 @@ function Register() {
           </div>
         </div>
       </div>
-    </>
+    </BaseLayout>
   );
 }
 

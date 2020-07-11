@@ -1,5 +1,11 @@
+import BaseLayout from "@/layouts/BaseLayout";
+
 function CV() {
-  return <h1>CV Page</h1>
+  return (
+    <BaseLayout>
+      <h1>CV Page</h1>
+    </BaseLayout>
+  );
 }
 
 export default CV;

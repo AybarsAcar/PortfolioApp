@@ -25,9 +25,13 @@ function LoginForm(props) {
           id="password"
         />
       </div>
-      <button type="submit" className="btn btn-main bg-blue py-2 ttu">
-        Submit
-      </button>
+      {props.loading ? (
+        "Signing In..."
+      ) : (
+        <button type="submit" className="btn btn-main bg-blue py-2 ttu">
+          Submit
+        </button>
+      )}
     </form>
   );
 }

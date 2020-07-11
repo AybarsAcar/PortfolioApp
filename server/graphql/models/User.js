@@ -35,20 +35,19 @@ class User {
         throw new Error("User with this email already exists");
       }
 
-      throw e;
+      throw err;
     }
   }
 
   signOut(ctx) {
     try {
-      console.log("BEFORE LOGOUT");
-      console.log("is authenticated", ctx.isAuthenticated());
-      console.log("user", ctx.getUser());
-
+      // console.log("BEFORE LOGOUT");
+      // console.log("is authenticated", ctx.isAuthenticated());
+      // console.log("user", ctx.getUser());
       ctx.logout();
-      console.log("AFTER AUTHENTICATED");
-      console.log("is authenticated", ctx.isAuthenticated());
-      console.log("user", ctx.getUser());
+      // console.log("AFTER AUTHENTICATED");
+      // console.log("is authenticated", ctx.isAuthenticated());
+      // console.log("user", ctx.getUser());
 
       return true;
     } catch (err) {

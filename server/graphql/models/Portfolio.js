@@ -1,32 +1,43 @@
-
 class Portfolio {
-
   //import the model from outside to make this class reusable
-  constructor(model){
+  constructor(model, user) {
     //this.Model === Portfolio
     this.Model = model;
+    this.user = user;
+
+    //array of roles that can write into the database
+    this.writeRights = ["instructor", "admin"];
   }
 
-  getAll(){
+  getAll() {
     return this.Model.find({});
-
   }
 
-  getById(id){
+  getAllByUser() {
+    return this.Model.find({ user: this.user._id }).sort({ startDate: "desc" });
+  }
+
+  getById(id) {
     return this.Model.findById(id);
-
   }
 
-  create(data){
+  create(data) {
+    if (!this.user || !this.writeRights.includes(this.user.role)) {
+      throw new Error("Not Authorised");
+    }
+    data.user = this.user;
     return this.Model.create(data);
   }
 
-  findAndUpdate(id, data){
-    return this.Model.findOneAndUpdate({_id: id}, data, {new: true});
+  findAndUpdate(id, data) {
+    return this.Model.findOneAndUpdate({ _id: id }, data, {
+      new: true,
+      runValidators: true,
+    });
   }
 
-  findAndDelete(id){
-    return this.Model.findOneAndRemove({_id: id});
+  findAndDelete(id) {
+    return this.Model.findOneAndRemove({ _id: id });
   }
 }
 

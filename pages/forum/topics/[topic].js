@@ -1,6 +1,8 @@
+import BaseLayout from "@/layouts/BaseLayout";
+
 function Posts() {
   return (
-    <>
+    <BaseLayout>
       <section className="section-title">
         <div className="px-2">
           <div className="pt-5 pb-4">
@@ -156,7 +158,7 @@ function Posts() {
           </div>
         </div>
       </section>
-    </>
+    </BaseLayout>
   );
 }
 

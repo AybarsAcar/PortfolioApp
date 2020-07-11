@@ -16,7 +16,7 @@ exports.init = (server, db) => {
     secret: config.SESSION_SECRET,
     cookie: { maxAge: 2 * 60 * 60 * 1000 },
     resave: false,
-    saveUnitialized: false,
+    saveUninitialized: false,
     store: db.initSessionStore(),
   };
 

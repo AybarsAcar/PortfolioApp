@@ -9,7 +9,7 @@ import { useLazyGetUser } from "@/apollo/actions";
 
 const AppLink = (props) => {
   return (
-    <Link href={props.href}>
+    <Link href={props.href} as={props.as}>
       <a className={props.className}>{props.children}</a>
     </Link>
   );
@@ -63,6 +63,27 @@ function AppNavbar() {
               {user && (
                 <>
                   <span className="nav-link mr-4">Welcome {user.username}</span>
+
+                  {(user.role === "admin" || user.role === "instructor") && (
+                    <NavDropdown
+                      className="mr-4"
+                      title="Manage"
+                      id="collasible-nav-dropdown"
+                    >
+                      <AppLink href="/portfolios/new" className="dropdown-item">
+                        Create a Portfolio
+                      </AppLink>
+                      <NavDropdown.Divider />
+                      <AppLink
+                        href="/instructor/[id]/dashboard"
+                        as={`/instructor/${user._id}/dashboard`}
+                        className="dropdown-item"
+                      >
+                        User Dashboard
+                      </AppLink>
+                    </NavDropdown>
+                  )}
+
                   <AppLink href="/logout" className="btn btn-danger nav-link">
                     Sign out
                   </AppLink>
