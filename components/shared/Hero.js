@@ -20,7 +20,7 @@ function Hero() {
             <a className="grow hero-link">
               <img
                 className="hero-image"
-                src="https://i.udemycdn.com/course/750x422/1652608_662b_8.jpg"
+                src="https://media-exp1.licdn.com/dms/image/C5603AQE7MqKzyYFt-Q/profile-displayphoto-shrink_400_400/0?e=1600300800&v=beta&t=bYYzjOCExL1oRQxzgDy9ue3qYYwVNTq6NByQREXgC3c"
               ></img>
             </a>
           </div>

@@ -7,14 +7,23 @@ import {
   GET_USER,
   GET_USER_PORTFOLIOS,
   SIGN_OUT,
-  GET_PORTFOLIO
+  GET_PORTFOLIO,
+  FORUM_CATEGORIES,
+  TOPICS_BY_CATEGORY,
+  CREATE_TOPIC,
+  TOPIC_BY_SLUG,
+  POSTS_BY_TOPIC,
+  CREATE_POST,
+  GET_HIGHLIGHT,
 } from "../queries";
 import { useQuery, useMutation, useLazyQuery } from "@apollo/react-hooks";
+
+export const useGetHighlight = (options) => useQuery(GET_HIGHLIGHT, options);
 
 export const useGetPortfolios = () => useQuery(GET_PORTFOLIOS);
 
 //query for 1 portfolio
-export const useGetPortfolio = (options) => useQuery(GET_PORTFOLIO, options)
+export const useGetPortfolio = (options) => useQuery(GET_PORTFOLIO, options);
 
 //exporting portfolios for user
 export const useGetUserPortfolios = () => useQuery(GET_USER_PORTFOLIOS);
@@ -25,8 +34,12 @@ export const useUpdatePortfolio = () => useMutation(UPDATE_PORTFOLIO);
 export const useDeletePortfolio = () =>
   useMutation(DELETE_PORTFOLIO, {
     update(cache, { data: { deletePortfolio } }) {
-      const { userPortfolios } = cache.readQuery({ query: GET_USER_PORTFOLIOS });
-      const newPortfolios = userPortfolios.filter((p) => p._id !== deletePortfolio);
+      const { userPortfolios } = cache.readQuery({
+        query: GET_USER_PORTFOLIOS,
+      });
+      const newPortfolios = userPortfolios.filter(
+        (p) => p._id !== deletePortfolio
+      );
       cache.writeQuery({
         query: GET_USER_PORTFOLIOS,
         data: { userPortfolios: newPortfolios },
@@ -64,5 +77,49 @@ export const useLazyGetUser = () => useLazyQuery(GET_USER);
 
 export const useGetUser = () => useQuery(GET_USER);
 
-
 //Auth actions end ----------------------
+
+//Forum Actions start -------------------
+
+export const useGetForumCategories = () => useQuery(FORUM_CATEGORIES);
+
+export const useGetTopicsByCategory = (options) =>
+  useQuery(TOPICS_BY_CATEGORY, options);
+
+export const useGetTopicBySlug = (options) => useQuery(TOPIC_BY_SLUG, options);
+
+export const useCreateTopic = () =>
+  useMutation(CREATE_TOPIC, {
+    update(cache, { data: { createTopic } }) {
+      try {
+        const { topicsByCategory } = cache.readQuery({
+          query: TOPICS_BY_CATEGORY,
+          variables: { category: createTopic.forumCategory.slug },
+        });
+        cache.writeQuery({
+          query: TOPICS_BY_CATEGORY,
+          data: { topicsByCategory: [...topicsByCategory, createTopic] },
+          variables: {
+            category: createTopic.forumCategory.slug,
+          },
+        });
+      } catch (err) {}
+    },
+  });
+
+  export const useGetPostsByTopic = (options) => useQuery(POSTS_BY_TOPIC, options)
+
+  export const useCreatePost = () => useMutation(CREATE_POST, {
+    update(cache) {
+      try {
+        //get the keys of your post
+        Object.keys(cache.data.data).forEach(key => {
+          key.match(/^Post/) && cache.data.delete(key);
+        })
+      } catch(err) {
+        return err;
+      }
+    }
+  });
+
+//Forum Actions start -------------------

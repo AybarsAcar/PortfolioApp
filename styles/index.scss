@@ -155,6 +155,14 @@ html {
     cursor: pointer;
   }
 }
+
+.card-body {
+  min-height: 150px;
+}
+
+.avatar {
+  border-radius: 50%;
+}
   
 .avatar-container {
   display: flex;
@@ -235,7 +243,10 @@ html {
   align-items: center;
   width: 100%;
   min-height: 50vh;
-  background-image: linear-gradient(170deg,#212A39 0%,#181E28 100%);
+  // background-image: linear-gradient(170deg,#212A39 0%,#181E28 100%);
+  background-image: url(https://media-exp1.licdn.com/dms/image/C5616AQGoF4QrsUGrvw/profile-displaybackgroundimage-shrink_350_1400/0?e=1600300800&v=beta&t=x627t6w0jl3whWK-q765I-6YT1a7L1rZ5GraMnh8wlM);
+  background-size:100% 100%;
+
 
   &-wrapper {
     max-width: 1180px;
@@ -282,9 +293,11 @@ html {
 
     .hero-image {
       border-radius: 50%;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      box-shadow: 0 20px 50px rgba(8, 112, 184, 0.4);
+
     }
   }
 }

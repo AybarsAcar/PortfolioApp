@@ -1,10 +1,9 @@
-class Portfolio {
+const BaseModel = require("./BaseModel");
+
+class Portfolio extends BaseModel {
   //import the model from outside to make this class reusable
   constructor(model, user) {
-    //this.Model === Portfolio
-    this.Model = model;
-    this.user = user;
-
+    super(model, user);
     //array of roles that can write into the database
     this.writeRights = ["instructor", "admin"];
   }

@@ -5,6 +5,7 @@ Fixes
   ie pls login to navigate etc
 3. runtime error when edit portfolio submitted
 4. the name of the button is create // change it to edit for better UX
+5. update state when we post a reply
 
 
   ------------------Other Todos-------------------

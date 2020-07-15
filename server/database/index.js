@@ -3,11 +3,14 @@ const mongoose = require ("mongoose");
 const session = require("express-session");
 const MongoDBStore = require("connect-mongodb-session")(session);
 
-const config = require("../config/dev");
+const config = require("../config");
 
 //importing your model
 require("./models/portfolio");
 require("./models/user");
+require("./models/forumCategory");
+require("./models/topic");
+require("./models/post");
 
 
 //connecting to our database

@@ -1,5 +1,5 @@
 //initialising middlewares here
-const config = require("../config/dev");
+const config = require("../config");
 const session = require("express-session");
 
 //importing the passport package and our passport
@@ -19,6 +19,14 @@ exports.init = (server, db) => {
     saveUninitialized: false,
     store: db.initSessionStore(),
   };
+
+  if (process.env.NODE_ENV === "production") {
+    server.set("trust proxy", 1);
+    sess.cookie.secure = true;
+    sess.cookie.httpOnly = true;
+    sess.cookie.sameSite = true;
+    sess.cookie.domain = process.env.DOMAIN // .yourDomain.com //.aybars-test-portfolio.herokuapp.com
+  }
 
   //tell your server to use session
   server.use(session(sess));

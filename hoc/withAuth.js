@@ -1,6 +1,6 @@
 import { useGetUser } from "@/apollo/actions";
 import Redirect from "@/components/shared/Redirect";
-import Loader from "@/components/shared/loader";
+import Loader from "@/components/shared/Loader";
 
 export default (WrappedComponent, role, options = { ssr: false }) => {
   function withAuth(props) {
@@ -23,7 +23,7 @@ export default (WrappedComponent, role, options = { ssr: false }) => {
 
     return (
       <div className="spinner-container">
-        Loading
+        <p>loading...</p>
       </div>
     );
   }

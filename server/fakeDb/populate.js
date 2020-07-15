@@ -1,7 +1,7 @@
 //connect to database and execute functions on the database
 
 const mongoose = require("mongoose");
-const config = require("../config/dev");
+const config = require("../config");
 const fakeDb = require("./fakeDb");
 
 //connecting to our database
